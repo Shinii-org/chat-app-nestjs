@@ -6,6 +6,10 @@ import { AuthModule } from './auth/auth.module';
 import { UserService } from './users/user.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { PassportModule } from '@nestjs/passport';
+import { LocalStrategy } from './auth/utils/LocalStrategy';
+
 import entities from './utils/typeorm';
 
 @Module({
@@ -13,7 +17,7 @@ import entities from './utils/typeorm';
     AuthModule,
     UsersModule,
     ConfigModule.forRoot({ envFilePath: '.env.development' }),
-
+    PassportModule.register({ session: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.MYSQL_DB_HOST,
